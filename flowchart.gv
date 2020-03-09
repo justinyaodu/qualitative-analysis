@@ -1,0 +1,214 @@
+digraph flowchart
+{
+	newrank = true
+	node [shape=rect]
+
+	subgraph cluster1
+	{
+		label = "1. Separation of Ag from Fe, Cu, Al, Mn, Zn"
+
+		ag_mn_fe_cu_al_zn [label="Ag⁺, Mn²⁺, Fe³⁺, Cu²⁺, Al³⁺, Zn²⁺ (aq)"]
+
+		hcl_for_ag [label="6M HCl" color=red]
+
+		mn_fe_cu_al_zn_agcl [label="Mn²⁺, Fe³⁺, Cu²⁺, Al³⁺, Zn²⁺ (aq)\nAgCl (s)" color=red]
+			ag_mn_fe_cu_al_zn -> mn_fe_cu_al_zn_agcl
+			hcl_for_ag -> mn_fe_cu_al_zn_agcl [color=red]
+
+		agcl [label="AgCl (s)"]
+			mn_fe_cu_al_zn_agcl -> agcl [label="centrifuge"]
+
+		h2o_for_agcl [label="1mL DI H₂O"]
+			h2o_for_agcl -> agcl [label="wash"]
+
+		mn_fe_cu_al_zn [label="Mn²⁺, Fe³⁺, Cu²⁺, Al³⁺, Zn²⁺ (aq)" color=red]
+			mn_fe_cu_al_zn_agcl -> mn_fe_cu_al_zn [label="decant" color=red]
+	}
+
+	subgraph cluster2
+	{
+		label = "2. Confirmation of Ag"
+
+		nh3_for_agcl [label="1mL 6M NH₃" color=blue]
+
+		agnh32 [label="Ag(NH₃)₂⁺ (aq)" color=blue]
+			agcl -> agnh32
+			nh3_for_agcl -> agnh32 [color=blue]
+
+		hcl_for_ag_again [label="6M HCl" color=red]
+
+		agcl_again [label="AgCl (s)" color=red]
+			agnh32 -> agcl_again [color=blue]
+			hcl_for_ag_again -> agcl_again [color=red]
+	}
+
+	subgraph cluster3
+	{
+		label = "3. Separation of Mn, Fe, Cu from Al, Zn"
+
+		h2o2 [label="10 drops 3% H₂O₂"]
+		
+		naoh_for_mg_fe_cu [label="6M NaOH" color=blue]
+
+		mno2_feoh3_cuoh2_aloh4_znoh4 [label="Al(OH)₄⁻, Zn(OH)₄²⁻ (aq)\nMnO₂, Fe(OH)₃, Cu(OH)₂ (s)" color=blue style=diagonals]
+			mn_fe_cu_al_zn -> mno2_feoh3_cuoh2_aloh4_znoh4 [color=red]
+			h2o2 -> mno2_feoh3_cuoh2_aloh4_znoh4
+			naoh_for_mg_fe_cu -> mno2_feoh3_cuoh2_aloh4_znoh4 [color=blue]
+
+		mno2_feoh3_cuoh2 [label="MnO₂, Fe(OH)₃, Cu(OH)₂ (s)" color=blue]
+			mno2_feoh3_cuoh2_aloh4_znoh4 -> mno2_feoh3_cuoh2 [label="centrifuge" color=blue]
+
+		naoh_h2o_for_mno2_feoh3_cuoh2 [label="10 drops 6M NaOH, 10 drops H₂O₂" color=blue]
+			naoh_h2o_for_mno2_feoh3_cuoh2 -> mno2_feoh3_cuoh2 [label="wash" color=blue]
+
+		aloh4_znoh4 [label="Al(OH)₄⁻, Zn(OH)₄²⁻ (aq)" color=blue]
+			mno2_feoh3_cuoh2_aloh4_znoh4 -> aloh4_znoh4 [label="decant" color=blue]
+	}
+
+	subgraph cluster4
+	{
+		label = "4. Separation of Mn from Fe, Cu"
+
+		h2o_for_mno2_feoh3_cuoh2 [label="5 drops DI H₂O"]
+
+		h2so4_for_feoh3_cuoh2 [label="6M H₂SO₄" color=red]
+
+		fe_cu_mno2 [label="Fe³⁺, Cu²⁺ (aq)\nMnO₂(s)" color=red]
+			mno2_feoh3_cuoh2 -> fe_cu_mno2
+			h2o_for_mno2_feoh3_cuoh2 -> fe_cu_mno2
+			h2so4_for_feoh3_cuoh2 -> fe_cu_mno2 [color=red]
+
+		h2o_for_mno2 [label="DI H₂O"]
+
+		mno2 [label="MnO₂ (s)"]
+			fe_cu_mno2 -> mno2 [label="centrifuge"]
+			h2o_for_mno2 -> mno2 [label="wash"]
+
+		fe_cu [label="Fe³⁺, Cu²⁺ (aq)" color=red]
+			fe_cu_mno2 -> fe_cu [label="decant"]
+	}
+
+	subgraph cluster5
+	{
+		label = "5. Separation of Fe from Cu;\nConfirmation of Cu"
+
+		nh3_for_fe_cu [label="6M NH₃" color=blue]
+
+		cunh34_feoh3 [label="Cu(NH₃)₄²⁺ (aq)\nFe(OH)₃ (s)" color=blue style=filled fillcolor=royalblue]
+			fe_cu -> cunh34_feoh3 [color=red]
+			nh3_for_fe_cu -> cunh34_feoh3 [color=blue]
+
+		h2o_for_feoh3 [label="2mL DI H₂O"]
+
+		feoh3 [label="Fe(OH)₃ (s)" color=blue]
+			cunh34_feoh3 -> feoh3 [label="centrifuge"]
+			h2o_for_feoh3 -> feoh3 [label="wash"]
+	}
+
+	subgraph cluster6
+	{
+		label = "6. Confirmation of Fe"
+
+		h2so4_for_feoh3 [label="6M H₂SO₄" color=red]
+
+		fe [label="Fe³⁺ (aq)" color=red]
+			feoh3 -> fe [color=blue]
+			h2so4_for_feoh3 -> fe [color=red]
+
+		kscn [label="5 drops 0.1M KSCN"]
+
+		fescn [label="FeSCN²⁺ (aq)" color=red style=filled fillcolor=maroon]
+			fe -> fescn [color=red]
+			kscn -> fescn
+	}
+
+	subgraph cluster7and8
+	{
+		label = "7. Mn Ions / 8. Confirmation of Mn"
+
+		h2o_h2so4_for_mno2 [label="1 mL DI H₂O, 1 mL 6M H₂SO₄" color=red]
+
+		h2o2_for_mno2 [label="1 mL 3% H₂O₂"]
+
+		mn [label="Mn²⁺ (aq)" color=red style=diagonals]
+			mno2 -> mn
+			h2o_h2so4_for_mno2 -> mn [color=red]
+			h2o2_for_mno2 -> mn
+		
+		hno3_for_mn [label="1 mL 6M HNO₃" color=red]
+
+		nabio3 [label="NaBiO₃"]
+
+		mno4 [label="MnO₄⁻ (aq)" color=red style=filled fillcolor=purple]
+			mn -> mno4 [color=red]
+			hno3_for_mn -> mno4 [color=red]
+			nabio3 -> mno4
+	}
+
+	subgraph cluster9
+	{
+		label = "9. Separation of Al from Zn"
+	
+		hno3_for_aloh4_znoh4 [label="6M HNO₃" color=red]
+
+		al_zn [label="Al³⁺, Zn²⁺ (aq)" color=red]
+			aloh4_znoh4 -> al_zn [color=blue]
+			hno3_for_aloh4_znoh4 -> al_zn [color=red]
+
+		nh3_for_al_zn [label="6M NH₃" color=blue]
+
+		aloh3_znnh34 [label="Zn(NH₃)₄²⁺ (aq)\nAl(OH)₃ (s)" color=blue]
+			al_zn -> aloh3_znnh34 [color=red]
+			nh3_for_al_zn -> aloh3_znnh34 [color=blue]
+
+		aloh3 [label="Al(OH)₃ (s)" color=blue]
+			aloh3_znnh34 -> aloh3 [label="centrifuge" color=blue]
+
+		znnh34 [label="Zn(NH₃)₄²⁺ (aq)" color=blue]
+			aloh3_znnh34 -> znnh34 [label="decant" color=blue]
+	}
+
+	subgraph cluster10
+	{
+		label = "10. Confirmation of Al"
+
+		hcl_for_aloh3 [label="6M HCl" color=red]
+
+		aluminon [label="3 drops aluminon"]
+
+		al [label="Al³⁺ (aq)" color=red]
+			aloh3 -> al [color=blue]
+			hcl_for_aloh3 -> al [color=red]
+			aluminon -> al
+
+		nh3_for_al [label="6M NH₃" color=blue]
+		
+		aloh3_again [label="Al(OH)₃ (s)" color=blue style=filled fillcolor=tomato]
+			al -> aloh3_again [color=red]
+			nh3_for_al -> aloh3_again [color=blue]
+	}
+
+	subgraph cluster11
+	{
+		label = "11. Confirmation of Zn"
+
+		hcl_for_znnh34 [label="6M HCl" color=red]
+
+		k4fecn6 [label="3 drops 0.1 M K₄[Fe(CN)₆]"]
+
+		k2zn3fecn62 [label="K₂Zn₃[Fe(CN)₆]₂ (s)" color=red style=filled fillcolor="white:lightgreen"]
+			znnh34 -> k2zn3fecn62 [color=blue]
+			hcl_for_znnh34 -> k2zn3fecn62 [color=red]
+			k4fecn6 -> k2zn3fecn62
+	}
+
+	subgraph clusterkey
+	{
+		label = "Key"
+
+		key_soln_color [label="color indicates\npresence of substance" style=filled fillcolor=lime]
+		key_heat [label="heat in hot water bath" style=diagonals]
+		key_basic [label="basic" color=blue]
+		key_acidic [label="acidic" color=red]
+	}
+}
